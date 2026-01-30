@@ -1,26 +1,24 @@
-MOV AL, 52 ; my number
-MOV DL, 2 ; index
-PUSH AL
-POP BL
-JMP is_prime
+MOV AL, 52        ; nombre à tester
+MOV DL, 2         ; diviseur
 
 is_prime:
-	CMP DL, AL
-	JS compare
-	JNS quit
-compare:
-	PUSH BL ;save BL value
-	MOD BL, DL
+    CMP DL, AL
+    JAE prime
 
-	CMP BL, 0
-	JZ is_not_prime
+    MOV BL, AL
+    MOD BL, DL
+    CMP BL, 0
+    JZ not_prime
 
-	POP BL
-	INC DL
-	JMP is_prime
-is_not_prime:
-	MOV AL, 0
-	JMP quit 
+    INC DL
+    JMP is_prime
+
+not_prime:
+    MOV AL, 0     ; 0 = pas premier
+    JMP quit
+
+prime:
+    MOV AL, 1     ; 1 = premier
+
 quit:
-	END
-END
+    END
